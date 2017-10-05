@@ -1,0 +1,56 @@
+The process of converting data to something a computer can understand is referred to as pre-processing. One of the major forms of pre-processing is to filter out useless data. In natural language processing, useless words (data), are referred to as stop words.
+
+What are Stop words?
+
+Stop Words: A stop word is a commonly used word (such as “the”, “a”, “an”, “in”) that a search engine has been programmed to ignore, both when indexing entries for searching and when retrieving them as the result of a search query.
+
+We would not want these words taking up space in our database, or taking up valuable processing time. For this, we can remove them easily, by storing a list of words that you consider to be stop words. NLTK(Natural Language Toolkit) in python has a list of stopwords stored in 16 different languages. You can find them in the nltk_data directory. 
+
+
+Removing stop words with NLTK
+
+The following program removes stop words from a piece of text:
+
+from nltk.corpus import stopwords
+from nltk.tokenize import word_tokenize
+ 
+example_sent = "This is a sample sentence, showing off the stop words filtration."
+ 
+stop_words = set(stopwords.words('english'))
+ 
+word_tokens = word_tokenize(example_sent)
+ 
+filtered_sentence = [w for w in word_tokens if not w in stop_words]
+ 
+filtered_sentence = []
+ 
+for w in word_tokens:
+    if w not in stop_words:
+        filtered_sentence.append(w)
+ 
+print(word_tokens)
+print(filtered_sentence)
+
+
+
+
+Performing the Stopwords operations in a file
+
+In the code below, text.txt is the original input file in which stopwords are to be removed. filteredtext.txt is the output file. It can be done using following code:
+
+import io
+from nltk.corpus import stopwords
+from nltk.tokenize import word_tokenize
+#word_tokenize accepts a string as an input, not a file.
+stop_words = set(stopwords.words('english'))
+file1 = open("text.txt")
+line = file1.read()# Use this to read file content as a stream:
+words = line.split()
+for r in words:
+    if not r in stop_words:
+        appendFile = open('filteredtext.txt','a')
+        appendFile.write(" "+r)
+        appendFile.close()
+
+
+
